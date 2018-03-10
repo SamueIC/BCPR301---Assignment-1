@@ -4,12 +4,13 @@ import re
 class Validator:
     def __init__(self):
         self.empid = "^[A-Z][\d]{3}$"
-        self.gender = "M|F"
+        self.gender = "^(M|F)$"
         self.age = "^[\d]{2}$"
         self.sales = "^[\d]{3}$"
         self.BMI = "^(Normal|Overweight|Obesity|Underweight)$"
         self.salary = "^[\d]{2,3}$"
-        self.birthday = "^[1-31](-|/)[1-12](-|/)(19|20)[0-9]{2}$"
+        # James (new reg ex)
+        self.birthday = "^(0[1-9]|[1-2][0-9]|3(0|1))(-|/)(0[1-9]|1[0-2])(-|/)(19|20)[0-9]{2}$"
 
     def check_empid(self, new_empid):
         match = re.match(self.empid, new_empid)
@@ -24,6 +25,15 @@ class Validator:
         if match:
             return new_gender
         else:
+            # James (new reg ex)
+            match = re.match("^((m|M)ale)", new_gender)
+            if match:
+                new_gender = "M"
+                return new_gender
+            match = re.match("^((f|F)emale)", new_gender)
+            if match:
+                new_gender = "F"
+                return new_gender
             new_gender = "Invalid gender"
             return new_gender
 
@@ -48,6 +58,11 @@ class Validator:
         if match:
             return new_BMI
         else:
+            # James (new reg ex)
+            match = re.match("^(normal|overweight|obesity|underweight)$", new_BMI)
+            if match:
+                new_BMI = new_BMI.capitalize()
+                return new_BMI
             new_BMI = "Invalid BMI"
             return new_BMI
 
