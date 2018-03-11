@@ -4,13 +4,12 @@ import re
 class Validator:
     def __init__(self):
         self.empid = "^[A-Z][\d]{3}$"
-        self.gender = "^(M|F)$"
+        self.gender = "M|F"
         self.age = "^[\d]{2}$"
         self.sales = "^[\d]{3}$"
         self.BMI = "^(Normal|Overweight|Obesity|Underweight)$"
         self.salary = "^[\d]{2,3}$"
-        # James (new reg ex)
-        self.birthday = "^(0[1-9]|[1-2][0-9]|3(0|1))(-|/)(0[1-9]|1[0-2])(-|/)(19|20)[0-9]{2}$"
+        self.birthday = "^[1-31]{1,2}(-|/)[1-12]{1,2}(-|/)(19|20)[0-9]{2}$"
 
     def check_empid(self, new_empid):
         match = re.match(self.empid, new_empid)
@@ -25,15 +24,6 @@ class Validator:
         if match:
             return new_gender
         else:
-            # James (new reg ex)
-            match = re.match("^((m|M)ale)", new_gender)
-            if match:
-                new_gender = "M"
-                return new_gender
-            match = re.match("^((f|F)emale)", new_gender)
-            if match:
-                new_gender = "F"
-                return new_gender
             new_gender = "Invalid gender"
             return new_gender
 
@@ -58,11 +48,6 @@ class Validator:
         if match:
             return new_BMI
         else:
-            # James (new reg ex)
-            match = re.match("^(normal|overweight|obesity|underweight)$", new_BMI)
-            if match:
-                new_BMI = new_BMI.capitalize()
-                return new_BMI
             new_BMI = "Invalid BMI"
             return new_BMI
 
@@ -77,7 +62,8 @@ class Validator:
     def check_birthday(self, new_birthday):
         match = re.match(self.birthday, new_birthday)
         if match:
-            return new_birthday
+            valid_birthday = new_birthday
+            return valid_birthday
         else:
             new_birthday = "Invalid birthday"
             return new_birthday
@@ -110,18 +96,18 @@ def checker(loaded_dict):
 #z3 = "21"
 #z4 = "Normal"
 #z5 = "100"
-#z6 = "13-12-1994"
+z6 = "13/05/1994"
 #
 #
 #c = a.check_empid(z1)
-#d = a.check_empid(z2)
-#e = a.check_empid(z3)
-#f = a.check_empid(z4)
-#g = a.check_empid(z5)
-#h = a.check_empid(z6)
+#d = a.check_gender(z2)
+#e = a.check_age(z3)
+#f = a.check_bmi(z4)
+#g = a.check_salary(z5)
+h = a.check_birthday(z6)
 #print(z1)
 #print(z2)
 #print(z3)
 #print(z4)
-#print(z5)
+print(h)
 #print(z6)

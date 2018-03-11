@@ -28,6 +28,21 @@ class Pickler:
             self.pickle_dict[key] = dumps(value)
         return self.pickle_dict
 
+    # does this need to be static??
+    @staticmethod
+    def pickle_super_dict(dictionary): # (self, dictionary) (if not static)
+        pickled_super_dict = dumps(dictionary) # pickled_super_dict's data type is now a byte stream
+        return pickled_super_dict # returns a byte stream
+
+
+# check that it creates byte stream
+
+# tester = Pickler()
+# print(type(tester))
+# b = tester.pickle_super_dict({"ONE", "THE NUMBER ONE"})
+# print(type(b))
+
+
     # using a function to get the dictionary instead of returning each time it changes
     # def get_dictionary(self):
 
